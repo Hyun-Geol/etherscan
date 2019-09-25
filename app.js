@@ -12,7 +12,7 @@ app.use('/public', express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
-app.set('views', __dirname + '/public');
+app.set('views', __dirname + '/views');
 
 app.use('/', indexRouter);
 app.use('/block', blockRouter);
