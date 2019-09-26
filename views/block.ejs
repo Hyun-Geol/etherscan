@@ -22,9 +22,9 @@
         <a class="navbar-brand" href="/">
             <img src="../public/images/ether.png" width="" height="40" alt="">
         </a>
-        <form class="form-inline" action="/block" method="post">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search by Address/ Txn Hash / Block"
-                name="address" aria-label="Search">
+        <form class="form-inline" action="/block" style="width: 50%;" method="post">
+            <input class="form-control" type="search" style="width: 80%; margin-right: 5px;"
+                placeholder="Search by Address/ Txn Hash / Block" name="address" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>
@@ -44,11 +44,11 @@
         </tr>
         <tr>
             <th scope="row">Mined by:</th>
-            <td><%= blockMiner %></td>
+            <td><a href="/address/<%= blockMiner %>"><%= blockMiner %></a></td>
         </tr>
         <tr>
             <th scope="row">Block Reward:</th>
-            <td><%= blockReward %> ether</td> 
+            <td><%= blockReward %> ether (static Block Reward * Transactions Fees)</td> 
         </tr>
 
         <tr>

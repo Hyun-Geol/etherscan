@@ -28,62 +28,11 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>
-    <h3> Transaction Details </h3>
-    <table class="table">
-        <tr>
-            <th scope="row">Transaction Hash:</th>
-            <td><%= hash %></td>
-        </tr>
-        <tr>
-            <th scope="row">Status:</th>
-            <td><%= status %></td>
-        </tr>
-        <tr>
-            <th scope="row">Block:</th>
-            <td><%= blockNumber %></td>
-        </tr>
-        <tr>
-            <th scope="row">Timestamp:</th>
-            <td><%=  %></td>
-        </tr>
-        <tr>
-            <th scope="row">From:</th>
-            <td><%= from %></td>
-        </tr>
 
-        <tr>
-            <th scope="row">To:</th>
-            <td><%= to %></td>
-        </tr>
-        <tr>
-            <th scope="row">Value:</th>
-            <td><%= value %></td>
-        </tr>
-        <tr>
-            <th scope="row">Transaction Fee:</th>
-            <td><%=  %></td>
-        </tr>
-        <tr>
-            <th scope="row">Gas Limit:</th>
-            <td><%=  %></td>
-        </tr>
-        <tr>
-            <th scope="row">Gas Used by Transaction:</th>
-            <td><%= gasUsed %></td>
-        </tr>
-        <tr>
-            <th scope="row">Gas Price:</th>
-            <td><%= gasPrice %></td>
-        </tr>
-        <tr>
-            <th scope="row">Nonce:</th>
-            <td><%= nonce %></td>
-        </tr>
-        <tr>
-            <th scope="row">Input Data:</th>
-            <td><%= input %></td>
-        </tr>
-    </table>
+    <form action="/block" method="post">
+        올바른 정보를 입력하세요.
+    </form>
+
 </body>
 
 </html>
