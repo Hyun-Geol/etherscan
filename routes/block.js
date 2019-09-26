@@ -10,18 +10,18 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.post('/', async function (req, res) {
     let { address } = req.body;
     await web3.eth.getBlockNumber(function (err, rtn) {
+        if (address.length === 42) {
+            return res.redirect(`/address/${address}`)
+        }
         if (address <= rtn) {
             return res.redirect(`/block/${address}`)
         }
-        else if (address.length === 42) {
-            return res.redirect(`/address/${address}`)
-        }
-        else if (address.length === 66) {
+        if (address.length === 66) {
             return res.redirect(`/tx/${address}`)
         }
-        else {
-            return res.redirect(`/err`)
-        }
+        if ( address.length === 0 || address > rtn || address.length !== 42 || address.length !== 66 ) {
+            return res.redirect(`/error`)
+        }    
     })
 })
 
@@ -35,6 +35,7 @@ router.get('/:pageId', async function (req, res) {
     } else {
         txFee = 2000000000000000000;
     }
+web3.eth.getUncle(pageId, 1).then(console.log)
     await web3.eth.getBlock(pageId, false, async function (err, block) {
         var timestamp = block.timestamp * 1000;
         var date = new Date(timestamp);
