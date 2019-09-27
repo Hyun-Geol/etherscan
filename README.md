@@ -22,12 +22,12 @@ http://localhot:3000 으로 접속하시면 됩니다.
     
  4. AddressBalance
 
-    ![addrpage](./screenshot/addrinfo.png)
+    ![addrpage](./screenshot/addrinfo.PNG)
     
  5. TransactionInfo
 
     ![txpage](./screenshot/txinfo.png)
     
  6. errorPage
- 7. 
+
     ![errpage](./screenshot/err.png)
