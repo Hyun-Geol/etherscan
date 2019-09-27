@@ -9,6 +9,9 @@ const txRouter = require('./routes/tx');
 const addressRouter = require('./routes/address');
 const errRouter = require('./routes/error');
 
+//app.use(function(req, res, next) {
+//    res.status(404).send('Sorry cant find that!');
+//});
 app.use('/public', express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -20,21 +20,24 @@ router.get('/', async function (req, res) {
             })
         }
         await web3.eth.getBlock(latest_block_number, async function (err, block) {
-            if (block.transactions.length >= 5) {
-                for (let j = 1; j <= 5; j++) {
-                    let blockTx = block.transactions[block.transactions.length - j]
-                    await web3.eth.getTransaction(blockTx, function (err, tx) {
-                        txList += ` 
+            web3.eth.getBlock(latest_block_number - 1, async function (err, block1) {
+                if(block.transactions.length + block1.transactions.length < 5){
+                    return res.redirect('/error')
+                }
+                if (block.transactions.length >= 5) {
+                    for (let j = 1; j <= 5; j++) {
+                        let blockTx = block.transactions[block.transactions.length - j]
+                        await web3.eth.getTransaction(blockTx, function (err, tx) {
+                            txList += ` 
                         <tr>
                             <td class="hash-tag text-truncate"><a href="/tx/${blockTx}">${blockTx}</a></td>
                             <td class="hash-tag text-truncate"><a href="/address/${tx.from}">${tx.from}</td>
                             <td class="hash-tag text-truncate"><a href="/address/${tx.to}">${tx.to}</td>
                         </tr>
                         `
-                    })
-                }
-            } else {
-                web3.eth.getBlock(latest_block_number - 1, async function (err, block1) {
+                        })
+                    }
+                } else {
                     for (let j = 1; j <= block.transactions.length; j++) {
                         let blockTx1 = block.transactions[block.transactions.length - j]
                         await web3.eth.getTransaction(blockTx1, function (err, tx1) {
@@ -59,8 +62,9 @@ router.get('/', async function (req, res) {
                             `
                         })
                     }
-                })
-            }
+
+                }
+            })
         })
         setTimeout(function () {
             return res.render('index', { bkList, txList })

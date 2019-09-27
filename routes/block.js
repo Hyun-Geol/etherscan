@@ -10,23 +10,29 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.post('/', async function (req, res) {
     let { address } = req.body;
     await web3.eth.getBlockNumber(function (err, rtn) {
-        if (address.length === 42) {
-            return res.redirect(`/address/${address}`)
+        if (address.length === 0 || address > rtn && address.length !== 42 && address.length !== 66) {
+            return res.redirect(`/error`)
         }
-        if (address <= rtn) {
+        else if (address.length === 42) {
+            let ckAddr = web3.utils.checkAddressChecksum(address)
+                if (ckAddr === false) {
+                    return res.redirect(`/error`)
+                } else {
+                    return res.redirect(`/address/${address}`)
+                }
+            }
+        else if (address <= rtn) {
             return res.redirect(`/block/${address}`)
         }
-        if (address.length === 66) {
+        else if (address.length === 66) {
             return res.redirect(`/tx/${address}`)
         }
-        if ( address.length === 0 || address > rtn || address.length !== 42 || address.length !== 66 ) {
-            return res.redirect(`/error`)
-        }    
     })
 })
 
 
 router.get('/:pageId', async function (req, res) {
+    let { address } = req.body;
     let pageId = req.params.pageId;
     if (pageId < 1700000) {
         txFee = 5000000000000000000;
@@ -35,7 +41,7 @@ router.get('/:pageId', async function (req, res) {
     } else {
         txFee = 2000000000000000000;
     }
-web3.eth.getUncle(pageId, 1).then(console.log)
+    //web3.eth.getUncle(pageId, 1).then(console.log)
     await web3.eth.getBlock(pageId, false, async function (err, block) {
         var timestamp = block.timestamp * 1000;
         var date = new Date(timestamp);
